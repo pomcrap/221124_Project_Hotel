@@ -1,2 +1,4 @@
-package PACKAGE_NAME;public class HotelService {
+public interface HotelService {
+    void getTotalBookList(); //전체예약리스트 조회.
+
 }
