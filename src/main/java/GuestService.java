@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.UUID;
 
 public class GuestService {
-    //        void cancelBook () {
+    Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
+//    Book book = new Book();  이유는 모르겠지만 생성 안해도 사용이 가능하다?
+    Guest guest = new Guest();
     void findBookByBookId() {
 
     } //id로 예약조회
@@ -14,6 +16,13 @@ public class GuestService {
     } //예약 취소
 
     void getMyBookList() {
+        for (Book book : hotel.getTotalBookList()){
+
+            if(guest.getName()==0) {
+                System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
+            }
+        }
+
 
     } //당사자 예약리스트 조회
 
