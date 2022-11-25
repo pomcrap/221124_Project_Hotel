@@ -10,7 +10,7 @@ public class HotelConsole {
 
     public HotelConsole(HotelService hotelService, GuestService guestService) {
         this.hotelService = hotelService;
-        this.guestService = guestService;2
+        this.guestService = guestService;
     }
 
     public void startConsole() {
