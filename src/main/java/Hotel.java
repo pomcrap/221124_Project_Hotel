@@ -25,3 +25,4 @@ public class Hotel {
      //totalBookList 정렬 함수
 
 }
+
