@@ -150,7 +150,8 @@ public class HotelConsole {
     }
 
     private void book(Room room, Guest guest, LocalDate date) {
-//        this.guestService.bookRoom(room, guest, date);
+        LocalDateTime datetime = date.atTime(15,00,00,0000);
+        this.guestService.bookRoom(room, guest, datetime);
     }
 
     private void accessAdmin() {

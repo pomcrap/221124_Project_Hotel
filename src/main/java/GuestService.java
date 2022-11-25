@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.UUID;
 
 public class GuestService {
-    //        void cancelBook () {
+    Hotel hotel = new Hotel();
+
     void findBookByBookId() {
 
     } //id로 예약조회
@@ -17,11 +18,10 @@ public class GuestService {
 
     } //당사자 예약리스트 조회
 
-    void bookRoom(Guest guest, Hotel hotel, LocalDateTime date) { ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
+    void bookRoom(Room room, Guest guest, LocalDateTime date) { ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
         while (true) {
-            // book 인스턴스에 필드값 넣기 - room
-            Room room = null; // this.room; //받아온값.
-
+            // book 인스턴스에 필드값 넣기
+            // book 인스턴스에 넣을 필드값 room, guest, date 는 hotelconsle에서 받음.
             // book 인스턴스에 필드값 넣기 - bookId
             String bookId = UUID.randomUUID().toString(); //랜덤UUID생성
 
@@ -37,7 +37,8 @@ public class GuestService {
             // Book 클래스에 compareable을 implements 했습니다. 동작확인필요.
             Collections.sort(hotel.getTotalBookList());
 
-
+            // guest의 bookIdList 에 지금 생성한 book인스턴스의 bookID 넣기
+            guest.getBookIdList().add(bookId);
 
         }//while문 끝
 
