@@ -8,6 +8,37 @@ public class GuestService {
     } //id로 예약조회
 
     void cancelBook() {
+        List<Integer> list = new ArrayList<Integer>(Arrays.asList(5, 4, 3, 2, 1)); //테스트용 리스트
+
+
+        String UUID = "1234"; //임시 패스워드 값. Book에서 UUID값 가져오기?
+        String Id;             //유저가 입력할 아이디 값
+
+
+        Scanner scanId = new Scanner(System.in); //입력
+        do {
+            System.out.println("id 입력 : ");
+            Id = scanId.next();
+            if (!Id.equals(UUID)) {
+                System.out.println("잘못된 입력");
+                System.out.println("1.백 2.재시도");
+                Scanner scan = new Scanner(System.in);
+                int fork = scan.nextInt();
+                if (fork == 1) {
+                    return;
+                }
+            }else {
+                list.remove(1); //값 삭제 -> Book list 가져와서 삭제?
+
+                System.out.println(list); //결과 테스트
+                break;
+            }
+
+        }
+        while (true);
+
+
+    }
 
     } //예약 취소
 
