@@ -22,8 +22,6 @@ public class Book {
         return bookDate;
     }
 
-
-
 }
 
 
