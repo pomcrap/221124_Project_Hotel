@@ -150,7 +150,7 @@ public class HotelConsole {
     }
 
     private void book(Room room, Guest guest, LocalDate date) {
-        this.guestService.bookRoom();
+//        this.guestService.bookRoom(room, guest, date);
     }
 
     private void accessAdmin() {
