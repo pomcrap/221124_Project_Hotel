@@ -1,8 +1,10 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.UUID;
 
 public class GuestService {
-
+    //        void cancelBook () {
     void findBookByBookId() {
 
     } //id로 예약조회
@@ -15,23 +17,16 @@ public class GuestService {
 
     } //당사자 예약리스트 조회
 
-    void bookRoom(Guest guest, Hotel hotel) { ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
+    void bookRoom(Guest guest, Hotel hotel, LocalDateTime date) { ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
         while (true) {
             // book 인스턴스에 필드값 넣기 - room
-            Room room =; // this.room; //받아온값.
+            Room room = null; // this.room; //받아온값.
 
             // book 인스턴스에 필드값 넣기 - bookId
             String bookId = UUID.randomUUID().toString(); //랜덤UUID생성
 
-            // book 인스턴스에 필드값 넣기 - guest
-            Guest guest =; // this.guest; //받아온값.
-
-            // book 인스턴스에 필드값 넣기 - bookDate
-            LocalDateTime bookDate =; // 받아온값.
-
-
             // Book의 객체 생성
-            Book book = new Book(room, bookId, guest, bookDate);
+            Book book = new Book(room, bookId, guest, date);
 
             //생성한 book인스턴스를 Hotel의 totalBookList에 넣기
             hotel.getTotalBookList().add(book); //이게..get으로하면되나?

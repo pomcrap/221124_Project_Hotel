@@ -33,7 +33,7 @@ public class Book implements Comparable<Book>{
     public int compareTo(Book book) {
         if(book.bookDate.isBefore(bookDate)){
             return 1;
-        }else if(book.bookDate.isAfter(bookDate){
+        }else if(book.bookDate.isAfter(bookDate)){
             return -1;
         }
         return 0;
