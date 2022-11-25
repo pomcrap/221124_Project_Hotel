@@ -15,6 +15,10 @@ public class Guest {
         this.bookIdList = bookIdList;
     }
 
+    public Guest() {
+
+    } //Guest 생성자
+
     public static GuestBuilder builder() {
         return new GuestBuilder();
     }
