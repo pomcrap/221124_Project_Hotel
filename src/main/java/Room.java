@@ -16,4 +16,6 @@ public class Room {
         this.size = size;
         this.charge = charge;
     }
+
+
 }

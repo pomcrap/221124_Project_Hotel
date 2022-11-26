@@ -28,6 +28,7 @@ public class Hotel {
     Hotel(){
          this.rooms = new ArrayList<>();
 
+         Room room;
          Room standard = new Room("Standard", 150_000);
          Room deluxe = new Room("Deluxe", 300_000);
          Room suit = new Room("Suite", 500_000);
@@ -35,6 +36,17 @@ public class Hotel {
          rooms.add(standard);
          rooms.add(deluxe);
          rooms.add(suit);
+    }
+    // Hotel의 income 하락 메소드 입니다.
+    public int loseIncome(int incomeLose) {
+        this.income -= incomeLose;
+        return income;
+    }
+
+    // Hotel의 income 상승 메소드 입니다.
+    public int earnIncome(int incomeEarn){
+        this.income += incomeEarn;
+        return income;
     }
 
 }

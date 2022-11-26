@@ -1,11 +1,13 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GuestService {
     Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
 //    Book book = new Book();  이유는 모르겠지만 생성 안해도 사용이 가능하다?
-    Guest guest = new Guest();
+
     void findBookByBookId() {
 
     } //id로 예약조회
@@ -66,8 +68,10 @@ public class GuestService {
             // book 인스턴스에 필드값 넣기 - bookId
             String bookId = UUID.randomUUID().toString(); //랜덤UUID생성
 
-            // Book의 객체 생성
+            // Book의 객체 생성, room의 charge 만큼 Hotel의 income 상승, guest의 money 하락.
             Book book = new Book(room, bookId, guest, date);
+            hotel.earnIncome(room.getCharge());
+            guest.useMoney(room.getCharge());
 
             //생성한 book인스턴스를 Hotel의 totalBookList에 넣기
             hotel.getTotalBookList().add(book); //이게..get으로하면되나?

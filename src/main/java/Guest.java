@@ -67,4 +67,16 @@ public class Guest {
     public List<String> getBookIdList() {
         return bookIdList;
     }
+
+    //고객의 money 출금 메소드 입니다.
+    public int useMoney(int moneyOut) {
+        this.money -= moneyOut;
+        return money;
+    }
+
+    // Guest의 money 입금 메소드 입니다.
+    public int returnMoney(int moneyIn){
+        this.money += moneyIn;
+        return money;
+    }
 }
