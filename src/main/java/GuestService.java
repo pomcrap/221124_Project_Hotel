@@ -14,8 +14,8 @@ public class GuestService {
 
     /**
      * 궁준님 테스트용 코드 그대로 있습니다.
-     * */
-    void cancelBook () {
+     */
+    void cancelBook() {
 //    public static void main(String[] args) {  //테스트용
 
         List<Integer> list = new ArrayList<Integer>(Arrays.asList(5, 4, 3, 2, 1)); //테스트용 리스트
@@ -37,7 +37,7 @@ public class GuestService {
                 if (fork == 1) {
                     return;
                 }
-            }else {
+            } else {
                 list.remove(1); //값 삭제 -> Book list 가져와서 삭제?
 
                 System.out.println(list); //결과 테스트
@@ -51,7 +51,7 @@ public class GuestService {
     }//예약 취소
 
     void getMyBookList() {
-        for (Book book : hotel.getTotalBookList()){
+        for (Book book : hotel.getTotalBookList()) {
 //     getName() 은 String 이라서 == 로 비교가 불가능합니다. "동등성"과 "동일성"에 대해 검색해보세요.
 //            if(guest.getName()==0) {
 //                System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
@@ -94,6 +94,50 @@ public class GuestService {
 
     }//고객정보 생성메소드
 
+    //예약가능한방 서치 후 보여주는 메소드
+    void searchBookableRoom(LocalDateTime date) {
+        // 1. hotel.TotalBookList에서, date와 bookDate 값이 일치하는 book이 있는지 확인
+            //1-1. date날짜에 예약된 방 리스트 / 예약가능한 방 리스트 두개 생성.
+            //1-2. hotel의 TotalBookList의 복제 리스트 생성.
+        List<Room> bookedRoomList = new ArrayList<>(); // date 날짜에 예약된 방을 담는 리스트
+        List<Room> bookableRoomList = new ArrayList<>(); // date 날짜에 예약가능한 방을 담는 리스트
+        List<Book> totalBookList = new ArrayList<>(hotel.getTotalBookList().size());
+        Collections.copy(totalBookList, hotel.getTotalBookList());
+        //1-3. totalbooklist 내용물 book을 for문 돌면서 매개변수 date와 bookDate가 일치하면 그 room을 bookedRoomList에 담기.
+        for (int i = 0; i < totalBookList.size(); i++) {
+            if(totalBookList.get(i).getBookDate()==date){
+                String matchSize =totalBookList.get(i).getRoom().getSize();
+                int matchCharge = totalBookList.get(i).getRoom().getCharge();
+                Room bookedRoom = new Room(matchSize, matchCharge);
 
+                bookedRoomList.add(bookedRoom); // 예약된 방을 bookeRoomList에 담는다.
+
+            }//if문 끝
+        }//for문 끝
+        // 3. hotel의 rooms 리스트의 내용물과 bookedRoomList 내용물 비교.
+        // 4. hotel.rooms - bookedRoomList 일치하지 않는 room을 bookablelist 에 담음.
+        for (int i = 0; i < hotel.getRooms().size(); i++){
+            for(int k=0; k< bookedRoomList.size(); k++){
+                if(hotel.getRooms().get(i) != bookedRoomList.get(k)){
+                    String matchSize = hotel.getRooms().get(i).getSize();
+                    int matchCharge = hotel.getRooms().get(i).getCharge();
+                    Room bookableRoom = new Room(matchSize, matchCharge);
+
+                    bookableRoomList.add(bookableRoom);
+                }//if문 끝
+            }//내부 for문 끝
+
+
+        }//외부for문 끝
+        // 5. bookableList를 출력.
+        for(int i=0; i<bookableRoomList.size(); i++){
+            String size = bookableRoomList.get(i).getSize();
+            int charge = bookableRoomList.get(i).getCharge();
+            System.out.printf("%d.%s 사이즈 : %d원", i, size, charge);
+
+        }//for문 끝
+
+
+    }//searchBookableRoom() 끝
 }// GuestService 클래스의 끝
 

@@ -17,6 +17,11 @@ public class Hotel {
         return this.rooms.get(no - 1);
     }
 
+    public List<Room> getRooms(){
+        //GuestService > searchBookableRoom()에서 사용합니다.
+        return rooms;
+    }
+
     public int getIncome() {
         return income;
     }
