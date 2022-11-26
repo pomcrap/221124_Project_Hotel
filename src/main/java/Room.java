@@ -17,5 +17,4 @@ public class Room {
         this.charge = charge;
     }
 
-
 }
