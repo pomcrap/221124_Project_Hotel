@@ -19,7 +19,6 @@ public class HotelConsole {
             System.out.println("1. 관리자모드 | 2. 고객모드 | 3. 종료");
             Scanner sc = new Scanner(System.in);
             int mode = sc.nextInt();
-            sc.nextLine();
             switch (mode) {
                 case 1:
                     this.accessAdmin();
@@ -36,6 +35,7 @@ public class HotelConsole {
     }
 
     private void accessGuest() {
+        String patternPhoneNumber = "^01(?:\\d{3}0|1|[0-9])-(?:\\d{4})-\\d{4}$"
         Scanner sc = new Scanner(System.in);
         System.out.println("고객 정보를 입력해주세요");
         System.out.print("이름: ");
