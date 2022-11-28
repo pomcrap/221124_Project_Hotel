@@ -188,7 +188,7 @@ public class HotelConsole {
         } while (!end);
     }
     private boolean checkPhoneNumber(String phoneNumber) {
-        String patternPhoneNumber = "^01(?:0|1|[6-9])-\\d{4}-\\d{4}$";
+        String patternPhoneNumber = "^010-\\d{4}-\\d{4}$";
         boolean regax = Pattern.matches(patternPhoneNumber, phoneNumber);
         if (regax == false) {
             return false;
