@@ -2,8 +2,11 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class HotelService {
-    Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
-//    Book book = new Book();     //book class 의 인스턴스 선언 ('hotel.getTotalBookList()'가 'book' 의 값 사용)
+    public HotelService(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
 
     void getTotalBookList() {
         for (Book book : hotel.getTotalBookList()){

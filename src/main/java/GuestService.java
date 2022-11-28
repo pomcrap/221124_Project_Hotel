@@ -5,8 +5,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GuestService {
-    Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
-//    Book book = new Book();  이유는 모르겠지만 생성 안해도 사용이 가능하다?
+    private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
+
+    public GuestService(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
     void findBookByBookId() {
 
