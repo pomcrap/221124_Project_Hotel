@@ -101,7 +101,7 @@ public class HotelConsole {
     private void showBook(Book book) {
 //        Book book = this.guestService.findBookByBookId();
 //        book을 출력
-//         ex) 1. <uuid> <방 사이즈> <가격> <예약자이름> <번호>
+////         ex) 1. <uuid> <방 사이즈> <가격> <예약자이름> <번호>
 //
     }
 

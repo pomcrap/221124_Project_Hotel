@@ -45,7 +45,6 @@ public class GuestService {
     public List<Book> getMyBookList(Guest guest) {
         List<Book> result = new ArrayList<>();
 
-
         for (Book book : hotel.getTotalBookList()) {
             if (book.getGuest().getName().equals(guest.getName()) && book.getGuest().getPhoneNum().equals(guest.getPhoneNum())) {
                 result.add(book);
