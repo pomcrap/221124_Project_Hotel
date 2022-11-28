@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -69,6 +70,9 @@ public class HotelConsole {
                     break;
                 case 2:
                     List<Book> books = this.showBooks(guest);
+                    if (books.isEmpty()) {
+                        break;
+                    }
                     System.out.println("예약 세부사항 보기");
                     int bookNo = sc.nextInt() - 1;
                     sc.nextLine();
@@ -105,7 +109,7 @@ public class HotelConsole {
         List<Book> books = this.guestService.getMyBookList(guest);
         if (books.isEmpty()) {
             System.out.println("예약리스트가 존재하지 않습니다");
-            return null;
+            return Collections.emptyList();
         }
 
         for (Book book : books) {
