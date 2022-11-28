@@ -12,59 +12,62 @@ public class GuestService {
     }
 
     void findBookByBookId() {
-
-    } //id로 예약조회
-
-    /**
-     * 궁준님 테스트용 코드 그대로 있습니다.
-     */
-    void cancelBook() {
-//    public static void main(String[] args) {  //테스트용
-
-        List<Integer> list = new ArrayList<Integer>(Arrays.asList(5, 4, 3, 2, 1)); //테스트용 리스트
-
-
-        String UUID = "1234"; //임시 패스워드 값. Book에서 UUID값 가져오기?
-        String Id;             //유저가 입력할 아이디 값
-
-
-        Scanner scanId = new Scanner(System.in); //입력
-        do {
-            System.out.println("id 입력 : ");
-            Id = scanId.next();
-            if (!Id.equals(UUID)) {
-                System.out.println("잘못된 입력");
-                System.out.println("1.백 2.재시도");
-                Scanner scan = new Scanner(System.in);
-                int fork = scan.nextInt();
-                if (fork == 1) {
-                    return;
-                }
-            } else {
-                list.remove(1); //값 삭제 -> Book list 가져와서 삭제?
-
-                System.out.println(list); //결과 테스트
-                break;
+        for (Book book : hotel.getTotalBookList()) {
+            if (book.getGuest().getName().equals(book.getBookId())) {
+                System.out.println(
+                        book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
             }
 
-        }
-        while (true);
+        } //id로 예약조회
+    }
 
-
-    }//예약 취소
-
-    void getMyBookList() {
+    //        /**
+//         * 궁준님 테스트용 코드 그대로 있습니다.
+//         */
+//        void cancelBook () {
+////    public static void main(String[] args) {  //테스트용
+//
+//            List<Integer> list = new ArrayList<Integer>(Arrays.asList(5, 4, 3, 2, 1)); //테스트용 리스트
+//
+//
+//            String UUID = "1234"; //임시 패스워드 값. Book에서 UUID값 가져오기?
+//            String Id;             //유저가 입력할 아이디 값
+//
+//
+//            Scanner scanId = new Scanner(System.in); //입력
+//            do {
+//                System.out.println("id 입력 : ");
+//                Id = scanId.next();
+//                if (!Id.equals(UUID)) {
+//                    System.out.println("잘못된 입력");
+//                    System.out.println("1.백 2.재시도");
+//                    Scanner scan = new Scanner(System.in);
+//                    int fork = scan.nextInt();
+//                    if (fork == 1) {
+//                        return;
+//                    }
+//                } else {
+//                    list.remove(1); //값 삭제 -> Book list 가져와서 삭제?
+//
+//                    System.out.println(list); //결과 테스트
+//                    break;
+//                }
+//
+//
+//                while (true) ;
+//
+//
+//            }//예약 취소
+    void getMyBookList(Guest guest) {
         for (Book book : hotel.getTotalBookList()) {
 //     getName() 은 String 이라서 == 로 비교가 불가능합니다. "동등성"과 "동일성"에 대해 검색해보세요.
-//            if(guest.getName()==0) {
-//                System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
-//            }
+            if (book.getGuest().getName().equals(guest.getName())) {
+                System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
+            }
         }
-
-
     } //당사자 예약리스트 조회
 
-    void bookRoom(Room room, Guest guest, LocalDateTime date) { ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
+    void bookRoom (Room room, Guest guest, LocalDateTime date){ ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
         while (true) {
             // book 인스턴스에 필드값 넣기
             // book 인스턴스에 넣을 필드값 room, guest, date 는 hotelconsle에서 받음.
@@ -93,23 +96,23 @@ public class GuestService {
 
     } //방예약 메소드
 
-    void createGuest() {
+    void createGuest () {
 
     }//고객정보 생성메소드
 
     //예약가능한방 서치 후 보여주는 메소드
-    void searchBookableRoom(LocalDateTime date) {
+    void searchBookableRoom (LocalDateTime date){
         // 1. hotel.TotalBookList에서, date와 bookDate 값이 일치하는 book이 있는지 확인
-            //1-1. date날짜에 예약된 방 리스트 / 예약가능한 방 리스트 두개 생성.
-            //1-2. hotel의 TotalBookList의 복제 리스트 생성.
+        //1-1. date날짜에 예약된 방 리스트 / 예약가능한 방 리스트 두개 생성.
+        //1-2. hotel의 TotalBookList의 복제 리스트 생성.
         List<Room> bookedRoomList = new ArrayList<>(); // date 날짜에 예약된 방을 담는 리스트
         List<Room> bookableRoomList = new ArrayList<>(); // date 날짜에 예약가능한 방을 담는 리스트
         List<Book> totalBookList = new ArrayList<>(hotel.getTotalBookList().size());
         Collections.copy(totalBookList, hotel.getTotalBookList());
         //1-3. totalbooklist 내용물 book을 for문 돌면서 매개변수 date와 bookDate가 일치하면 그 room을 bookedRoomList에 담기.
         for (int i = 0; i < totalBookList.size(); i++) {
-            if(totalBookList.get(i).getBookDate()==date){
-                String matchSize =totalBookList.get(i).getRoom().getSize();
+            if (totalBookList.get(i).getBookDate() == date) {
+                String matchSize = totalBookList.get(i).getRoom().getSize();
                 int matchCharge = totalBookList.get(i).getRoom().getCharge();
                 Room bookedRoom = new Room(matchSize, matchCharge);
 
@@ -119,9 +122,9 @@ public class GuestService {
         }//for문 끝
         // 3. hotel의 rooms 리스트의 내용물과 bookedRoomList 내용물 비교.
         // 4. hotel.rooms - bookedRoomList 일치하지 않는 room을 bookablelist 에 담음.
-        for (int i = 0; i < hotel.getRooms().size(); i++){
-            for(int k=0; k< bookedRoomList.size(); k++){
-                if(hotel.getRooms().get(i) != bookedRoomList.get(k)){
+        for (int i = 0; i < hotel.getRooms().size(); i++) {
+            for (int k = 0; k < bookedRoomList.size(); k++) {
+                if (hotel.getRooms().get(i) != bookedRoomList.get(k)) {
                     String matchSize = hotel.getRooms().get(i).getSize();
                     int matchCharge = hotel.getRooms().get(i).getCharge();
                     Room bookableRoom = new Room(matchSize, matchCharge);
@@ -133,7 +136,7 @@ public class GuestService {
 
         }//외부for문 끝
         // 5. bookableList를 출력.
-        for(int i=0; i<bookableRoomList.size(); i++){
+        for (int i = 0; i < bookableRoomList.size(); i++) {
             String size = bookableRoomList.get(i).getSize();
             int charge = bookableRoomList.get(i).getCharge();
             System.out.printf("%d.%s 사이즈 : %d원", i, size, charge);
@@ -143,4 +146,3 @@ public class GuestService {
 
     }//searchBookableRoom() 끝
 }// GuestService 클래스의 끝
-
