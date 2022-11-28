@@ -124,7 +124,7 @@ public class HotelConsole {
         Scanner sc = new Scanner(System.in);
         int cmd; // 예약하기, 뒤로가기, 닫기 선택용 변수
         System.out.println("체크인 시간은 오후 3시입니다.");
-        System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");
+        System.out.printf("예약을 원하는 날짜를 입력해주세여. ex) %s\n", LocalDate.now().plusDays(1));
         String dateStr = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate checkInDate = LocalDate.parse(dateStr, formatter);
@@ -134,7 +134,7 @@ public class HotelConsole {
             boolean collectBookDate = checkBookDate(checkInDate);
             while (!collectBookDate) {
                 System.out.println("예약날짜는 내일부터만 예약 가능합니다.");
-                System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");
+                System.out.printf("예약을 원하는 날짜를 입력해주세여. ex) %s\n", LocalDate.now());
                 dateStr = sc.nextLine();
                 checkInDate = LocalDate.parse(dateStr, formatter);
                 collectBookDate = checkBookDate(checkInDate);
@@ -189,6 +189,10 @@ public class HotelConsole {
             switch (cmd) {
                 case 1:
                     List<Book> totalBookList = this.hotelService.getTotalBookList();
+                    if (totalBookList.isEmpty()) {
+                        System.out.println("예약리스트가 존재하지 않습니다");
+                        break;
+                    }
                     for (Book book: totalBookList) {
                         System.out.println("==== 예약 목록 ====");
                         book.printDetailInfo();
