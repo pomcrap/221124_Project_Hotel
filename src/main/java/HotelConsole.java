@@ -73,7 +73,7 @@ public class HotelConsole {
                 case 2:
                     List<Book> books = this.showBooks(guest);
                     System.out.println("예약 세부사항 보기");
-                    int bookNo = sc.nextInt();
+                    int bookNo = sc.nextInt() - 1;
                     sc.nextLine();
                     assert bookNo > 0;
                     assert bookNo <= books.size();
@@ -124,7 +124,7 @@ public class HotelConsole {
         boolean back = false;
         while (!back) {
         // 날짜가 유효한지 체크(프로그램 실행일 기준, 내일부터 예약가능)
-        Boolean collectBookDate = checkBookDate(checkInDate);
+        boolean collectBookDate = checkBookDate(checkInDate);
         while (!collectBookDate) {
             System.out.println("예약날짜는 내일부터만 예약 가능합니다.");
             System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");

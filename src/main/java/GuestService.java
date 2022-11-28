@@ -119,15 +119,16 @@ public class GuestService {
             return hotel.getRooms(); // bookedRoomList가 빈 경우 그냥 rooms를 출력 (이게 없어서그랬어!)
         }
         // bookedRoomList가 비어있지 않은 경우
-        bookableRoomList = hotel.getRooms();
-            for(Room room : bookableRoomList){
-                for(int i=0; i < bookedRoomList.size(); i++){
-                    if(room.getSize().equals(bookedRoomList.get(i).getSize()))
-                    {
-                        bookableRoomList.remove(room);
-                    }
+        bookableRoomList = new ArrayList<>(hotel.getRooms());
+        for (Room value : bookedRoomList) {
+            for (Room room : bookableRoomList) {
+                if (room.getSize().equals(value.getSize())) {
+                    bookableRoomList.remove(room);
+                    break;
                 }
-           }
+            }
+        }
+
         return bookableRoomList;
 
 
