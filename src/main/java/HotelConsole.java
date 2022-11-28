@@ -45,7 +45,7 @@ public class HotelConsole {
         System.out.print("핸드폰번호( ex) 010-0000-0000 ) :");
         String phoneNumber = sc.nextLine();
         Boolean collectPhoneNumber = checkPhoneNumber(phoneNumber);
-        while (collectPhoneNumber == false){
+        while (collectPhoneNumber == false) {
             System.out.println("양식에 맞지 않습니다. 다시 입력해주세요.");
             System.out.print("핸드폰번호( ex) 010-0000-0000 ) :");
             phoneNumber = sc.nextLine();
@@ -106,7 +106,8 @@ public class HotelConsole {
     }
 
     private List<Book> showBooks(Guest guest) {
-        this.guestService.getMyBookList(guest);
+        List<Book> books = this.guestService.getMyBookList(guest);
+
 //                    books == 나의 예약 리스트를 전부 출력
 //                    ex) 1. <uuid> <방 사이즈>
 //                    ex) 2. <uuid> <방 사이즈>
@@ -123,31 +124,31 @@ public class HotelConsole {
         LocalDate checkInDate = LocalDate.parse(dateStr, formatter);
         boolean back = false;
         while (!back) {
-        // 날짜가 유효한지 체크(프로그램 실행일 기준, 내일부터 예약가능)
-        boolean collectBookDate = checkBookDate(checkInDate);
-        while (!collectBookDate) {
-            System.out.println("예약날짜는 내일부터만 예약 가능합니다.");
-            System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");
-            dateStr = sc.nextLine();
-            checkInDate = LocalDate.parse(dateStr, formatter);
-            collectBookDate = checkBookDate(checkInDate);
-        }
-        LocalTime checkInTime = LocalTime.of(15,0,0);
-        LocalDateTime date = LocalDateTime.of(checkInDate,checkInTime);
-         // 예약가능한 방 보여주는 메소드 (1. 방목록 조회 2. 해당방 정보조회)
-            System.out.println("==== "+ date +" 예약 가능한 방 ==== ");
+            // 날짜가 유효한지 체크(프로그램 실행일 기준, 내일부터 예약가능)
+            boolean collectBookDate = checkBookDate(checkInDate);
+            while (!collectBookDate) {
+                System.out.println("예약날짜는 내일부터만 예약 가능합니다.");
+                System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");
+                dateStr = sc.nextLine();
+                checkInDate = LocalDate.parse(dateStr, formatter);
+                collectBookDate = checkBookDate(checkInDate);
+            }
+            LocalTime checkInTime = LocalTime.of(15, 0, 0);
+            LocalDateTime date = LocalDateTime.of(checkInDate, checkInTime);
+            // 예약가능한 방 보여주는 메소드 (1. 방목록 조회 2. 해당방 정보조회)
+            System.out.println("==== " + date + " 예약 가능한 방 ==== ");
             System.out.println(date);
-            List<Room>bookableRoomList = guestService.searchBookableRoom(date);
-            for(int i=0; i<bookableRoomList.size(); i++){
-            String size = bookableRoomList.get(i).getSize();
-            System.out.printf("%d.%s 사이즈\n", i+1, size);
+            List<Room> bookableRoomList = guestService.searchBookableRoom(date);
+            for (int i = 0; i < bookableRoomList.size(); i++) {
+                String size = bookableRoomList.get(i).getSize();
+                System.out.printf("%d.%s 사이즈\n", i + 1, size);
             }
             System.out.println("자세히 보고싶은 방을 선택하세요.");
-            int no = sc.nextInt()-1;
+            int no = sc.nextInt() - 1;
             String noSize = bookableRoomList.get(no).getSize();
             int noCharge = bookableRoomList.get(no).getCharge();
             System.out.printf("\n%s 사이즈, %d원\n", noSize, noCharge);
-            Room wantRoom = new Room(noSize,noCharge);
+            Room wantRoom = new Room(noSize, noCharge);
             System.out.println("1. 예약하기 | 2. 뒤로가기 | 3. 닫기");
             cmd = sc.nextInt();
             sc.nextLine();
@@ -193,24 +194,15 @@ public class HotelConsole {
             }
         } while (!end);
     }
+
     private boolean checkPhoneNumber(String phoneNumber) {
         String patternPhoneNumber = "^010-\\d{4}-\\d{4}$";
-        boolean regax = Pattern.matches(patternPhoneNumber, phoneNumber);
-        if (regax == false) {
-            return false;
-
-        }
-        return true;
+        return Pattern.matches(patternPhoneNumber, phoneNumber);
     }
-    private boolean checkBookDate(LocalDate date){
-     LocalDate today = LocalDate.now();
-        if(date.isAfter(today)){
-            return true;
-        }return false;
-     }
 
-
-
-
+    private boolean checkBookDate(LocalDate date) {
+        LocalDate today = LocalDate.now();
+        return date.isAfter(today);
     }
+}
 

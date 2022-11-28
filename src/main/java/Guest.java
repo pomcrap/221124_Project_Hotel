@@ -14,7 +14,6 @@ public class Guest {
         this.money = money;
         this.bookIdList = bookIdList;
     }
-
     public Guest() {} //Guest 생성자
 
     public static GuestBuilder builder() {
