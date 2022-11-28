@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class HotelConsole {
     private final HotelService hotelService;
@@ -20,7 +21,6 @@ public class HotelConsole {
             System.out.println("1. 관리자모드 | 2. 고객모드 | 3. 종료");
             Scanner sc = new Scanner(System.in);
             int mode = sc.nextInt();
-            sc.nextLine();
             switch (mode) {
                 case 1:
                     this.accessAdmin();
@@ -41,8 +41,15 @@ public class HotelConsole {
         System.out.println("고객 정보를 입력해주세요");
         System.out.print("이름: ");
         String name = sc.nextLine();
-        System.out.print("핸드폰번호: ");
+        System.out.print("핸드폰번호: ex) 010-0000-0000");
         String phoneNumber = sc.nextLine();
+        Boolean collectPhoneNumber = checkPhoneNumber(phoneNumber);
+        while (collectPhoneNumber == false){
+            System.out.println("양식에 맞지 않습니다. 다시 입력해주세요.");
+            System.out.print("핸드폰번호: ex) 010-0000-0000");
+            phoneNumber = sc.nextLine();
+            collectPhoneNumber = checkPhoneNumber(phoneNumber);
+        }
         System.out.print("얼마있냐?: ");
         int money = sc.nextInt();
         sc.nextLine();
@@ -180,4 +187,14 @@ public class HotelConsole {
             }
         } while (!end);
     }
+    private boolean checkPhoneNumber(String phoneNumber) {
+        String patternPhoneNumber = "^01(?:0|1|[6-9])-\\d{4}-\\d{4}$";
+        boolean regax = Pattern.matches(patternPhoneNumber, phoneNumber);
+        if (regax == false) {
+            return false;
+
+        }
+        return true;
+    }
+
 }
