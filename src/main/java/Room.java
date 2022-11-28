@@ -3,6 +3,8 @@ public class Room {
     private String size;
     private int charge;
 
+    private String detailInformation;
+
     String getSize() {
         return size;
     }
@@ -11,10 +13,13 @@ public class Room {
         return charge;
     }
 
+    String getDetailInformation() { return detailInformation;}
+
     // Room의 생성자
-    Room(String size, int charge){
+    Room(String size, int charge, String detailInformation){
         this.size = size;
         this.charge = charge;
+        this.detailInformation = detailInformation;
     }
 
 }

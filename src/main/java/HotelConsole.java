@@ -20,6 +20,7 @@ public class HotelConsole {
     public void startConsole() {
         boolean stop = false;
         while (!stop) {
+            System.out.println("어서오세요, 코새싹 호텔입니다!");
             System.out.println("1. 관리자모드 | 2. 고객모드 | 3. 종료");
             Scanner sc = new Scanner(System.in);
             int mode = sc.nextInt();
@@ -60,7 +61,7 @@ public class HotelConsole {
 
         boolean end = false;
         do {
-            System.out.printf("환영합니다. %s고객님!\n", guest.getName());
+            System.out.printf("환영합니다. %s 고객님!\n", guest.getName());
             System.out.println("1. 방목록조회 | 2. 예약조회 | 3. 종료");
             int cmd = sc.nextInt();
             sc.nextLine();
@@ -73,7 +74,7 @@ public class HotelConsole {
                     if (books.isEmpty()) {
                         break;
                     }
-                    System.out.println("예약 세부사항 보기");
+                    System.out.println("세부사항을 보고싶은 예약의 index 번호를 입력해주세요.");
                     int bookNo = sc.nextInt() - 1;
                     sc.nextLine();
                     assert bookNo > 0;
@@ -111,9 +112,10 @@ public class HotelConsole {
             System.out.println("예약리스트가 존재하지 않습니다");
             return Collections.emptyList();
         }
-
+        int idx = 1;
         for (Book book : books) {
             System.out.println("==== 예약 정보 ====");
+            System.out.println("["+idx++ +"]");
             book.printInfo();
         }
 
@@ -142,19 +144,21 @@ public class HotelConsole {
             LocalTime checkInTime = LocalTime.of(15, 0, 0);
             LocalDateTime date = LocalDateTime.of(checkInDate, checkInTime);
             // 예약가능한 방 보여주는 메소드 (1. 방목록 조회 2. 해당방 정보조회)
-            System.out.println("==== " + date + " 예약 가능한 방 ==== ");
-            System.out.println(date);
+            System.out.println("==== " + date + " 날짜에 예약 가능한 방 목록입니다. ==== ");
+            System.out.printf("나의 소지금 : %d원 \n\n", guest.getMoney());
             List<Room> bookableRoomList = guestService.searchBookableRoom(date);
             for (int i = 0; i < bookableRoomList.size(); i++) {
                 String size = bookableRoomList.get(i).getSize();
-                System.out.printf("%d.%s 사이즈\n", i + 1, size);
+                int charge = bookableRoomList.get(i).getCharge();
+                System.out.printf("%d.%s 사이즈 | %d원 \n", i + 1, size, charge);
             }
             System.out.println("자세히 보고싶은 방을 선택하세요.");
             int no = sc.nextInt() - 1;
             String noSize = bookableRoomList.get(no).getSize();
             int noCharge = bookableRoomList.get(no).getCharge();
-            System.out.printf("\n%s 사이즈, %d원\n", noSize, noCharge);
-            Room wantRoom = new Room(noSize, noCharge);
+            String noDetail = bookableRoomList.get(no).getDetailInformation();
+            System.out.printf("\n%s 사이즈 | %d원 \n[ 상세정보 ] \n%s\n\n", noSize, noCharge, noDetail);
+            Room wantRoom = new Room(noSize, noCharge, noDetail);
             System.out.println("1. 예약하기 | 2. 뒤로가기 | 3. 닫기");
             cmd = sc.nextInt();
             sc.nextLine();
@@ -193,14 +197,15 @@ public class HotelConsole {
                         System.out.println("예약리스트가 존재하지 않습니다");
                         break;
                     }
+                    int i = 1;
                     for (Book book: totalBookList) {
-                        System.out.println("==== 예약 목록 ====");
+                        System.out.printf("==== 예약 리스트 [%d] ====\n",i++);
                         book.printDetailInfo();
                     }
                     break;
                 case 2:
                     int income = this.hotelService.getIncome();
-                    System.out.printf("총 수입은%d 입니다.\n", income);
+                    System.out.printf("총 수입은 %d원 입니다.\n", income);
                     break;
                 case 3:
                     end = true;

@@ -26,9 +26,8 @@ private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
             guest.getBookIdList().remove(id);
             int charge = book.getRoom().getCharge();
             hotel.loseIncome(charge);
-
             guest.returnMoney(charge);
-
+            System.out.println("예약 취소 완료!");
         } else {
             System.out.println("니꺼아님");
 
@@ -50,6 +49,7 @@ private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
     void bookRoom(Room room, Guest guest, LocalDateTime date) { ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
         if (room.getCharge() > guest.getMoney()) {
             System.out.println("소지금이 부족합니다.");
+            return;
         }
         String bookId = UUID.randomUUID().toString(); //랜덤UUID생성
 
@@ -93,7 +93,8 @@ private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
             if (book.getBookDate().isEqual(date)) {
                 String matchSize = book.getRoom().getSize();
                 int matchCharge = book.getRoom().getCharge();
-                Room bookedRoom = new Room(matchSize, matchCharge);
+                String matchDetail = book.getRoom().getDetailInformation();
+                Room bookedRoom = new Room(matchSize, matchCharge, matchDetail);
 
                 bookedRoomList.add(bookedRoom); // 예약된 방을 bookeRoomList에 담는다.
 

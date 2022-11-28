@@ -12,10 +12,13 @@ public class Hotel {
     Hotel(){
         this.rooms = new ArrayList<>();
 
-        Room room;
-        Room standard = new Room("Standard", 150_000);
-        Room deluxe = new Room("Deluxe", 300_000);
-        Room suit = new Room("Suite", 500_000);
+        String standardDetail = "전망 : 빌딩뷰 | 욕조 : 없음 | 부가서비스 : 없음 | 와이파이 : 있음";
+        String deluxeDetail = "전망 : 시티뷰 | 욕조 : 있음 | 부가서비스 : 넷플릭스 무료, 웰컴드링크 제공 | 와이파이 : 있음";
+        String suitDetail = "전망 : 오션뷰 | 욕조 : 있음 | 부가서비스 : 넷플릭스 무료, 웰컴드링크 제공, 전용 온수풀 | 와이파이 : 있음";
+
+        Room standard = new Room("Standard", 150_000, standardDetail);
+        Room deluxe = new Room("Deluxe", 300_000,deluxeDetail);
+        Room suit = new Room("Suite", 500_000,suitDetail);
 
         rooms.add(standard);
         rooms.add(deluxe);
