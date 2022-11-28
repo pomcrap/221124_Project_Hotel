@@ -68,13 +68,11 @@ public class GuestService {
     } //당사자 예약리스트 조회
 
     void bookRoom (Room room, Guest guest, LocalDateTime date){ ///여기에 함수인수 뭐지..?) { //이게맞아? 이거야..????
-        while (true) {
-            // book 인스턴스에 필드값 넣기
-            // book 인스턴스에 넣을 필드값 room, guest, date 는 hotelconsle에서 받음.
-            // book 인스턴스에 필드값 넣기 - bookId
-            String bookId = UUID.randomUUID().toString(); //랜덤UUID생성
+        if(room.getCharge() > guest.getMoney()){
+            System.out.println("소지금이 부족합니다.");
+        }
+        String bookId = UUID.randomUUID().toString(); //랜덤UUID생성
 
-            // Book의 객체 생성, room의 charge 만큼 Hotel의 income 상승, guest의 money 하락.
             Book book = new Book(room, bookId, guest, date);
             hotel.earnIncome(room.getCharge());
             guest.useMoney(room.getCharge());
@@ -91,7 +89,7 @@ public class GuestService {
             // guest의 bookIdList 에 지금 생성한 book인스턴스의 bookID 넣기
             guest.getBookIdList().add(bookId);
 
-        }//while문 끝
+        //while문 끝
 
 
     } //방예약 메소드
@@ -101,7 +99,7 @@ public class GuestService {
     }//고객정보 생성메소드
 
     //예약가능한방 서치 후 보여주는 메소드
-    void searchBookableRoom (LocalDateTime date){
+    List<Room> searchBookableRoom (LocalDateTime date){
         // 1. hotel.TotalBookList에서, date와 bookDate 값이 일치하는 book이 있는지 확인
         //1-1. date날짜에 예약된 방 리스트 / 예약가능한 방 리스트 두개 생성.
         //1-2. hotel의 TotalBookList의 복제 리스트 생성.
@@ -135,13 +133,8 @@ public class GuestService {
 
 
         }//외부for문 끝
-        // 5. bookableList를 출력.
-        for (int i = 0; i < bookableRoomList.size(); i++) {
-            String size = bookableRoomList.get(i).getSize();
-            int charge = bookableRoomList.get(i).getCharge();
-            System.out.printf("%d.%s 사이즈 : %d원", i, size, charge);
+        return bookableRoomList;
 
-        }//for문 끝
 
 
     }//searchBookableRoom() 끝

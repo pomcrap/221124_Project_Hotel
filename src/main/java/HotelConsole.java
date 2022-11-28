@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -41,12 +42,12 @@ public class HotelConsole {
         System.out.println("고객 정보를 입력해주세요");
         System.out.print("이름: ");
         String name = sc.nextLine();
-        System.out.print("핸드폰번호: ex) 010-0000-0000");
+        System.out.print("핸드폰번호( ex) 010-0000-0000 ) :");
         String phoneNumber = sc.nextLine();
         Boolean collectPhoneNumber = checkPhoneNumber(phoneNumber);
         while (collectPhoneNumber == false){
             System.out.println("양식에 맞지 않습니다. 다시 입력해주세요.");
-            System.out.print("핸드폰번호: ex) 010-0000-0000");
+            System.out.print("핸드폰번호( ex) 010-0000-0000 ) :");
             phoneNumber = sc.nextLine();
             collectPhoneNumber = checkPhoneNumber(phoneNumber);
         }
@@ -83,7 +84,7 @@ public class HotelConsole {
                     sc.nextLine();
                     switch (cmd) {
                         case 1:
-                            this.guestService.cancelBook();
+//                            this.guestService.cancelBook();
                             break;
                         case 2:
                             break;
@@ -114,40 +115,43 @@ public class HotelConsole {
 
     private void showRooms(Guest guest) {
         Scanner sc = new Scanner(System.in);
-        int cmd;
+        int cmd; // 예약하기, 뒤로가기, 닫기 선택용 변수
         System.out.println("체크인 시간은 오후 3시입니다.");
         System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");
         String dateStr = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate checkInDate = LocalDate.parse(dateStr, formatter);
-        LocalTime checkInTime = LocalTime.of(15,00,00);
-        LocalDateTime date = LocalDateTime.of(checkInDate,checkInTime);
-                    /*
-                       위 날짜에 예약가능한 방을 조회 -
-                       1. 방목록조회
-                       2. 해당방의 정보 조회
-                       3. 예약하기
-                     */
-//                                방 리스트를 보여줄 메소드 필요합니다.
         boolean back = false;
         while (!back) {
+        LocalDate checkInDate = LocalDate.parse(dateStr, formatter);
+         // 날짜가 유효한지 체크(프로그램 실행일 기준, 내일부터 예약가능) : 작성중
+        Boolean collectBookDate = checkBookDate(checkInDate);
+        while (collectBookDate == false){
+            System.out.println("예약날짜는 내일부터만 예약 가능합니다.");
+            dateStr = sc.nextLine();
+            checkInDate = LocalDate.parse(dateStr, formatter);
+            collectBookDate = checkBookDate(checkInDate);
+        }
+        LocalTime checkInTime = LocalTime.of(15,0,0);
+        DateTimeFormatter isoUtcFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm'Z'");
+        LocalDateTime date = LocalDateTime.parse(LocalDateTime.of(checkInDate,checkInTime).format(isoUtcFormatter));
+         // 예약가능한 방 보여주는 메소드 (1. 방목록 조회 2. 해당방 정보조회)
             System.out.println("==== "+ date +" ==== ");
-//                                List<Room> rooms = this.hotelService.getRooms();
-
-//                                 rooms 출력
-            System.out.println("1. 추가정보 확인");
+            for(int i=0; i<guestService.searchBookableRoom(date).size(); i++){
+            String size = guestService.searchBookableRoom(date).get(i).getSize();
+            System.out.printf("%d.%s 사이즈", i, size);
+            }
+            System.out.println("자세히 보고싶은 방을 선택하세요.");
             int no = sc.nextInt();
-            sc.nextLine();
-//                                사용자가 방하나를 고르면 고른 번호 == no
-                        Room room = null;
-//                                Room room = this.hotelService.getRoom(no);
-//                                 room 출력 size, 가격
+            String noSize = guestService.searchBookableRoom(date).get(no).getSize();
+            int noCharge = guestService.searchBookableRoom(date).get(no).getCharge();
+            System.out.printf("%s 사이즈, %d원", noSize, noCharge);
+            Room wantRoom = new Room(noSize,noCharge);
             System.out.println("1. 예약하기 | 2. 뒤로가기 | 3. 닫기");
             cmd = sc.nextInt();
             sc.nextLine();
             switch (cmd) {
                 case 1:
-                    this.book(room, guest, date);
+                    this.book(wantRoom, guest, date);
                     back = true;
                     break;
                 case 2:
@@ -160,9 +164,8 @@ public class HotelConsole {
         }
     }
 
-    private void book(Room room, Guest guest, LocalDate date) {
-        LocalDateTime datetime = date.atTime(15,00,00,0000);
-        this.guestService.bookRoom(room, guest, datetime);
+    private void book(Room room, Guest guest, LocalDateTime date) {
+        this.guestService.bookRoom(room, guest, date);
     }
 
     private void accessAdmin() {
@@ -196,5 +199,14 @@ public class HotelConsole {
         }
         return true;
     }
+    private boolean checkBookDate(LocalDate date){
+     LocalDate today = LocalDate.now();
+     boolean bookableDate = date.isAfter(today);
+     return bookableDate;
+     }
 
-}
+
+
+
+    }
+
