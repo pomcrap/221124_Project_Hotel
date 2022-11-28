@@ -1,13 +1,18 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class HotelService {
-    Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
-    Book book = new Book();     //book class 의 인스턴스 선언 ('hotel.getTotalBookList()'가 'book' 의 값 사용)
 
-    void getTotalBookList() {
-        for (Book book : hotel.getTotalBookList()){
-            System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
-        }
+private final Hotel hotel;
+    public  HotelService (Hotel hotel) {  //HotelService를 만들때 기존 Hotel 정보를 받아 옴
+        this.hotel=hotel;
+    }
+    public List<Book> getTotalBookList() {
+        return hotel.getTotalBookList();
     } //전체예약리스트 조회.
+    public int getIncome() {
+        return hotel.getIncome() ;
+    }
 }

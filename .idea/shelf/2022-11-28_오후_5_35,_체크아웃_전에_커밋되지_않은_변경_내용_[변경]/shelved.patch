@@ -1,0 +1,123 @@
+Index: src/main/java/GuestService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GuestService.java b/src/main/java/GuestService.java
+--- a/src/main/java/GuestService.java	
++++ b/src/main/java/GuestService.java	
+@@ -1,12 +1,8 @@
+-import java.time.LocalDate;
+ import java.time.LocalDateTime;
+ import java.util.*;
+-import java.util.regex.Matcher;
+-import java.util.regex.Pattern;
+ 
+ public class GuestService {
+     private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
+-
+     public GuestService(Hotel hotel) {
+         this.hotel = hotel;
+     }
+@@ -21,43 +17,32 @@
+         } //id로 예약조회
+     }
+ 
+-    //        /**
+-//         * 궁준님 테스트용 코드 그대로 있습니다.
+-//         */
+-//        void cancelBook () {
+-////    public static void main(String[] args) {  //테스트용
+-//
+-//            List<Integer> list = new ArrayList<Integer>(Arrays.asList(5, 4, 3, 2, 1)); //테스트용 리스트
+-//
+-//
+-//            String UUID = "1234"; //임시 패스워드 값. Book에서 UUID값 가져오기?
+-//            String Id;             //유저가 입력할 아이디 값
+-//
+-//
+-//            Scanner scanId = new Scanner(System.in); //입력
+-//            do {
+-//                System.out.println("id 입력 : ");
+-//                Id = scanId.next();
+-//                if (!Id.equals(UUID)) {
+-//                    System.out.println("잘못된 입력");
+-//                    System.out.println("1.백 2.재시도");
+-//                    Scanner scan = new Scanner(System.in);
+-//                    int fork = scan.nextInt();
+-//                    if (fork == 1) {
+-//                        return;
+-//                    }
+-//                } else {
+-//                    list.remove(1); //값 삭제 -> Book list 가져와서 삭제?
+-//
+-//                    System.out.println(list); //결과 테스트
+-//                    break;
+-//                }
+-//
+-//
+-//                while (true) ;
+-//
+-//
+-//            }//예약 취소
++        void cancelBook () {
++
++            String Id;             //유저가 입력할 아이디 값
++
++            Scanner scanId = new Scanner(System.in); //입력
++            do {
++                System.out.println("id 입력 : ");
++                Id = scanId.next();
++
++                if (equals()) {
++                    System.out.println("잘못된 입력");
++                    System.out.println("1.백 2.재시도");
++                    Scanner scan = new Scanner(System.in);
++                    int fork = scan.nextInt();
++                    if (fork == 1) {
++                        return;
++
++                    } else {
++
++                        System.out.println("remove");
++                    }
++                }
++            } while (); //호텔 수익금
++        }
++            //예약 취소
++
+     void getMyBookList(Guest guest) {
+         for (Book book : hotel.getTotalBookList()) {
+ //     getName() 은 String 이라서 == 로 비교가 불가능합니다. "동등성"과 "동일성"에 대해 검색해보세요.
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -1,6 +1,9 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="FrameworkDetectionExcludesConfiguration">
++    <file type="web" url="file://$PROJECT_DIR$" />
++  </component>
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+Index: src/main/java/HotelConsole.java
+===================================================================
+diff --git a/src/main/java/HotelConsole.java b/src/main/java/HotelConsole.java
+--- a/src/main/java/HotelConsole.java	
++++ b/src/main/java/HotelConsole.java	
+@@ -35,7 +35,7 @@
+     }
+ 
+     private void accessGuest() {
+-        String patternPhoneNumber = "^01(?:\\d{3}0|1|[0-9])-(?:\\d{4})-\\d{4}$"
++        String patternPhoneNumber = "^01(?:\\d{3}0|1|[0-9])-(?:\\d{4})-\\d{4}$";
+         Scanner sc = new Scanner(System.in);
+         System.out.println("고객 정보를 입력해주세요");
+         System.out.print("이름: ");
