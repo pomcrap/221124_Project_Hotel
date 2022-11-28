@@ -3,16 +3,18 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class GuestService {
-    Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
-//    Book book = new Book();  이유는 모르겠지만 생성 안해도 사용이 가능하다?
-    Guest guest = new Guest();
+    Hotel hotel;
+    public  GuestService (Hotel hotel) {  //HotelService를 만들때 기존 Hotel 정보를 받아 옴
+        this.hotel=hotel;
+    }
+
     void findBookByBookId() {
-        for (Book book : hotel.getTotalBookList()){
-            if(book.getGuest().getName().equals(book.getBookId())){
+        for (Book book : hotel.getTotalBookList()) {
+            if (book.getGuest().getName().equals(book.getBookId())) {
                 System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
             }
-
-    } //id로 예약조회
+        }
+    }//id로 예약조회
 
     /**
      * 궁준님 테스트용 코드 그대로 있습니다.
@@ -52,14 +54,15 @@ public class GuestService {
 
     }//예약 취소
 
-    void getMyBookList(Guest guest) {
+    public List<Book> getMyBookList(Guest guest) {
+        List<Book> result=new ArrayList<>();
+
         for (Book book : hotel.getTotalBookList()){
-//     getName() 은 String 이라서 == 로 비교가 불가능합니다. "동등성"과 "동일성"에 대해 검색해보세요.
-               if(book.getGuest().getName().equals(guest.getName())){
-               System.out.println(book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
+               if(book.getGuest().getName().equals(guest.getName()) && book.getGuest().getPhoneNum().equals(guest.getPhoneNum())){
+                   result.add(book);
             }
         }
-
+      return result;
 
     } //당사자 예약리스트 조회
 

@@ -18,7 +18,7 @@ public class Hotel {
     }
 
     public int getIncome() {
-        return income;
+        return this.income;
     }
 
     public List<Book> getTotalBookList() {

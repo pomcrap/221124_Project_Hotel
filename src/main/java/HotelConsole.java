@@ -96,8 +96,9 @@ public class HotelConsole {
 //
     }
 
-    private List<Book> showBooks() {
-//                    List<Book> books = this.guestService.getMyBookList(guest);
+    private List<Book> showBooks(Guest guest) {
+                    List<Book> books = this.guestService.getMyBookList(guest);
+
 //                    books == 나의 예약 리스트를 전부 출력
 //                    ex) 1. <uuid> <방 사이즈>
 //                    ex) 2. <uuid> <방 사이즈>
@@ -168,7 +169,7 @@ public class HotelConsole {
                     break;
                 case 2:
 //                                의논해보기
-//                                this.hotelService.getIncome();
+                                this.hotelService.getIncome();
                     break;
                 case 3:
                     end = true;

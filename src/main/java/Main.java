@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        HotelConsole hotelConsole = new HotelConsole(new HotelService(), new GuestService());
+        Hotel hotel=new Hotel();
+        HotelConsole hotelConsole = new HotelConsole(new HotelService(hotel), new GuestService(hotel));
         hotelConsole.startConsole();
     }
 }
