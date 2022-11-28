@@ -44,8 +44,9 @@ public class HotelConsole {
         String name = sc.nextLine();
         System.out.print("핸드폰번호( ex) 010-0000-0000 ) :");
         String phoneNumber = sc.nextLine();
-        Boolean collectPhoneNumber = checkPhoneNumber(phoneNumber);
-        while (collectPhoneNumber == false) {
+        /** 여가   */
+        boolean collectPhoneNumber = checkPhoneNumber(phoneNumber);
+        while (!collectPhoneNumber) {
             System.out.println("양식에 맞지 않습니다. 다시 입력해주세요.");
             System.out.print("핸드폰번호( ex) 010-0000-0000 ) :");
             phoneNumber = sc.nextLine();
@@ -54,12 +55,8 @@ public class HotelConsole {
         System.out.print("얼마있냐?: ");
         int money = sc.nextInt();
         sc.nextLine();
-//        this.guestService.createGuest();
-        Guest guest = Guest.builder()
-                .name(name)
-                .phoneNum(phoneNumber)
-                .money(money)
-                .build();
+        Guest guest = this.guestService.createGuest(name, phoneNumber, money);
+
         boolean end = false;
         do {
             System.out.printf("환영합니다. %s고객님!\n", guest.getName());
@@ -99,19 +96,24 @@ public class HotelConsole {
     }
 
     private void showBook(Book book) {
-//        Book book = this.guestService.findBookByBookId();
-//        book을 출력
-////         ex) 1. <uuid> <방 사이즈> <가격> <예약자이름> <번호>
-//
+        Book target = this.guestService.findBookByBookId(book.getBookId());
+        target.printDetailInfo();
     }
 
     private List<Book> showBooks(Guest guest) {
+        /**   여기    */
         List<Book> books = this.guestService.getMyBookList(guest);
+        if (books.isEmpty()) {
+            System.out.println("예약리스트가 존재하지 않습니다");
+            return null;
+        }
 
-//                    books == 나의 예약 리스트를 전부 출력
-//                    ex) 1. <uuid> <방 사이즈>
-//                    ex) 2. <uuid> <방 사이즈>
-        return null;
+        for (Book book : books) {
+            System.out.println("==== 예약 정보 ====");
+            book.printInfo();
+        }
+
+        return books;
     }
 
     private void showRooms(Guest guest) {
@@ -182,11 +184,15 @@ public class HotelConsole {
             sc.nextLine();
             switch (cmd) {
                 case 1:
-                    this.hotelService.getTotalBookList();
+                    List<Book> totalBookList = this.hotelService.getTotalBookList();
+                    for (Book book: totalBookList) {
+                        System.out.println("==== 예약 목록 ====");
+                        book.printDetailInfo();
+                    }
                     break;
                 case 2:
-//                                의논해보기
-//                                this.hotelService.getIncome();
+                    int income = this.hotelService.getIncome();
+                    System.out.printf("총 수입은%d 입니다.\n", income);
                     break;
                 case 3:
                     end = true;

@@ -43,6 +43,17 @@ public class Book implements Comparable<Book>{
         }
         return 0;
     }
+
+    public void printDetailInfo() {
+        System.out.printf("예약번호: %s\n방 사이즈: %s\n가격: %d\n예약자이름: %s\n번호: %s\n예약날짜: %s\n",
+                this.bookId, this.getRoom().getSize(), this.getRoom().getCharge(), this.getGuest().getName(),
+                this.getGuest().getPhoneNum(), this.getBookDate());
+    }
+
+    public void printInfo() {
+        System.out.printf("예약번호: %s\n방 사이즈: %s\n가격: %d\n",
+                this.bookId, this.getRoom().getSize(), this.getRoom().getCharge());
+    }
 }
 
 

@@ -5,20 +5,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GuestService {
-    private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
+private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
 
     public GuestService(Hotel hotel) {
         this.hotel = hotel;
     }
 
-    void findBookByBookId() {
-        for (Book book : hotel.getTotalBookList()) {
-            if (book.getGuest().getName().equals(book.getBookId())) {
-                System.out.println(
-                        book.getBookDate() + ", " + book.getRoom() + "," + book.getBookId() + ", " + book.getGuest());
-            }
-
-        } //id로 예약조회
+    public Book findBookByBookId(String bookId) {
+        return this.hotel.getBook(bookId);
     }
 
     void cancelBook(Book book, Guest guest) {
@@ -81,8 +75,12 @@ public class GuestService {
 
     } //방예약 메소드
 
-    void createGuest() {
-
+    public Guest createGuest(String name, String phoneNumber, int money) {
+        return  Guest.builder()
+                .name(name)
+                .phoneNum(phoneNumber)
+                .money(money)
+                .build();
     }//고객정보 생성메소드
 
     //예약가능한방 서치 후 보여주는 메소드

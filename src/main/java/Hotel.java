@@ -1,8 +1,5 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Hotel {
     private List<Room> rooms;
@@ -41,6 +38,13 @@ public class Hotel {
 
     public List<Book> getTotalBookList() {
         return totalBookList;
+    }
+
+    public Book getBook(String bookId) {
+        return this.getTotalBookList().stream()
+                .filter(book -> Objects.equals(book.getBookId(), bookId))
+                .findFirst()
+                .get();
     }
 
     // Hotel의 income 하락 메소드 입니다.
