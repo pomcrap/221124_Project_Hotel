@@ -116,7 +116,7 @@ public class GuestService {
             }
         }
         if(bookedRoomList.isEmpty()){
-            return hotel.getRooms(); // bookedRoomList가 빈 경우 그냥 rooms를 출력
+            return hotel.getRooms(); // bookedRoomList가 빈 경우 그냥 rooms를 출력 (이게 없어서그랬어!)
         }
         // bookedRoomList가 비어있지 않은 경우
         bookableRoomList = hotel.getRooms();
