@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
@@ -107,10 +108,13 @@ public class HotelConsole {
     private void showRooms(Guest guest) {
         Scanner sc = new Scanner(System.in);
         int cmd;
+        System.out.println("체크인 시간은 오후 3시입니다.");
         System.out.println("예약을 원하는 날짜를 입력해주세여. ex) 2022-11-25");
         String dateStr = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse(dateStr, formatter);
+        LocalDate checkInDate = LocalDate.parse(dateStr, formatter);
+        LocalTime checkInTime = LocalTime.of(15,00,00);
+        LocalDateTime date = LocalDateTime.of(checkInDate,checkInTime);
                     /*
                        위 날짜에 예약가능한 방을 조회 -
                        1. 방목록조회

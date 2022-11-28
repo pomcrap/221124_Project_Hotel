@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 public class GuestService {
     Hotel hotel = new Hotel();  //Hotel class 의 인스턴스 선언.
-//    Book book = new Book();  이유는 모르겠지만 생성 안해도 사용이 가능하다?
 
     void findBookByBookId() {
 
@@ -97,8 +96,8 @@ public class GuestService {
     //예약가능한방 서치 후 보여주는 메소드
     void searchBookableRoom(LocalDateTime date) {
         // 1. hotel.TotalBookList에서, date와 bookDate 값이 일치하는 book이 있는지 확인
-            //1-1. date날짜에 예약된 방 리스트 / 예약가능한 방 리스트 두개 생성.
-            //1-2. hotel의 TotalBookList의 복제 리스트 생성.
+       //1-1. date날짜에 예약된 방 리스트 / 예약가능한 방 리스트 두개 생성.
+      //1-2. hotel의 TotalBookList의 복제 리스트 생성.
         List<Room> bookedRoomList = new ArrayList<>(); // date 날짜에 예약된 방을 담는 리스트
         List<Room> bookableRoomList = new ArrayList<>(); // date 날짜에 예약가능한 방을 담는 리스트
         List<Book> totalBookList = new ArrayList<>(hotel.getTotalBookList().size());
@@ -139,5 +138,6 @@ public class GuestService {
 
 
     }//searchBookableRoom() 끝
+
 }// GuestService 클래스의 끝
 
