@@ -19,8 +19,7 @@ private final Hotel hotel;  //Hotel class 의 인스턴스 선언.
 
         boolean check = book.getGuest().equals(guest);
 
-        if (check == true) {
-
+        if (check) {
             hotel.getTotalBookList().remove(book);
             String id = book.getBookId();
             guest.getBookIdList().remove(id);

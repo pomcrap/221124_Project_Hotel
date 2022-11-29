@@ -6,9 +6,7 @@ public class Hotel {
     // 방종류
     private int income;
     private List<Book> totalBookList = new ArrayList<>();
-    /**
-     * 생정자는 필드밑에 작성하시는게 코드컨벤션입니다.
-     * */
+
     Hotel(){
         this.rooms = new ArrayList<>();
 
